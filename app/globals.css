@@ -45,7 +45,7 @@ body {
   top: 12px;
   left: 0px;
   z-index: 1;
-  grid-template-columns: repeat(5, 70px);
+  grid-template-columns: repeat(6, 70px);
   grid-template-rows: repeat(5, 30px);
   gap: 0px;
 
@@ -74,7 +74,7 @@ body {
   top: 0;
   left: 0;
   display: grid;
-  grid-template-columns: repeat(5, 70px); /* Festlegen der Spaltenbreite */
+  grid-template-columns: repeat(6, 70px); /* Festlegen der Spaltenbreite */
   grid-template-rows: repeat(6, 29px); /* Festlegen der Zeilenhöhe */
   gap: 0px;
   z-index: 2;
