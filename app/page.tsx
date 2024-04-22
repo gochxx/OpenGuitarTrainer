@@ -1,15 +1,42 @@
-function HorizontalLine() {
-  return <div className="horizontal-line"></div>;
-}
+'use client'
+import React, { useState, useEffect } from 'react';
 
-
-export default function Square() {
+function App() {
   var pattern = new Array(36);
   for (var i = 0; i < pattern.length; i++) {
     pattern[i] = 0; // Beispiel: Elemente mit Zahlen von 1 bis 36 füllen
   }
   pattern[7] = 1;
   pattern[9] = 2;
+
+
+  // zeitliche Array Änderung
+    // Zustandsvariable für das Array
+    const [array, setArray] = useState(pattern);
+
+    // Effekt, der jede Sekunde aufgerufen wird und das Array aktualisiert
+    useEffect(() => {
+      const intervalId = setInterval(() => {
+        // Hier kannst du das Array auf die gewünschte Weise aktualisieren
+        setArray(prevArray => {
+          // Zum Beispiel: Das erste Element wird ans Ende verschoben
+          const newArray = [...prevArray];
+          const firstElement = newArray.shift();
+          newArray.push(firstElement);
+          return newArray;
+        });
+      }, 1000); // Alle 1000 Millisekunden (1 Sekunde) aktualisieren
+  
+      // Aufräumen, um das Intervall zu stoppen, wenn die Komponente unmontiert wird
+      return () => clearInterval(intervalId);
+    }, []); // Leeres Abhängigkeitsarray, damit dieser Effekt nur einmal beim ersten Rendern ausgeführt wird
+  
+
+pattern = array;
+
+
+
+
 
   return (<>    
     <div className="app">
@@ -29,12 +56,20 @@ export default function Square() {
       </div>
     </div>
 
-
-
+    <div>
+      {array.map((element, index) => (
+        <p key={index}>Element {index + 1}: {element}</p>
+      ))}
+    </div>
 
 </>);
 }
 
+export default App; 
+
+function HorizontalLine() {
+  return <div className="horizontal-line"></div>;
+}
 
 const RedCircle = () => {
   return (
@@ -51,4 +86,5 @@ const BlackCircle = () => {
     </svg>
   );
 };
+
 
