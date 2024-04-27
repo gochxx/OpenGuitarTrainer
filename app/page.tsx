@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 
-function App() {
+function ScaleBox() {
   
   
   var scaleindex = new Array ;
@@ -76,10 +76,47 @@ var scaledisp = new Array(36);
 
 
 
+  /* tabdisplay */
+  function tabdispArange(scaleindex, pattern, position, length) {
+    const neuerArray = [];
+
+    // erstmal zeilenweise auffüllen
+    for (let i = 0; i < 6; i += 1) {
+      let newValue = scaleindex[pattern[position + i]];
+      let saite = 0;
+      for (let u = newValue; u > 5; u -= 6){
+        saite += 1;
+        newValue = u-6;
+
+      }
+      for (let i=0; i<6; i+=1){
+        if (i==saite) {neuerArray.push(newValue);}
+        else {neuerArray.push(-1)}
+      }
+ 
+    }
+
+    /* transponieren */
+ 
+    let transposedArray = [];
+    for (let i = 0; i < 6; i++) {
+      for (let j = 0; j < 6; j++) {
+        transposedArray.push(neuerArray[j * 6 + i]);
+      }
+    }
+
+
+
+    //return neuerArray;
+    return transposedArray;
+  }
+  var tabdisp = new Array(36);
+  tabdisp = tabdispArange(scaleindex, pattern, position, 6);
+  tabdisp = zeilenUmkehren(tabdisp, 6);
 
 
   return (<>    
-    <div className="app">
+    <div className="scalebox">
       {/* Erstes Raster */}
       <div className="grid">
         {[...Array(30)].map((_, index) => (
@@ -94,9 +131,47 @@ var scaledisp = new Array(36);
           </div>
         ))}
       </div>
+      
+
+    </div>
+    
+    
+    <div className = "tabs">
+      <div>
+        <HorizontalLine />
+        <HorizontalLine />
+        <HorizontalLine />
+        <HorizontalLine />
+        <HorizontalLine />
+        <HorizontalLine />
+      </div>
+      <div>
+        <div className = "overlay-grid-tab">
+        {
+        
+        tabdisp.map((value, index) => (
+          <div key={index} className="grid-item-overlay">
+
+          {(index % 6 === 0) ? (
+            <span style={{ color: 'red' }}>{value > -1 ? value : null}</span>
+          ) : (
+            value > -1 ? value : null
+          )}
+
+
+       
+          </div>
+        ))
+        
+        
+       
+        
+        }
+        </div>
+      </div>
     </div>
 
-    <div>
+    {/*<div>
       {array.map((element, index) => (
         <p key={index}>Element {index + 1}: {element}</p>
       ))}
@@ -105,8 +180,21 @@ var scaledisp = new Array(36);
     <div>
       <p align="center">{position}</p>
     </div>
-
+      */
+    }
 </>);
+}
+
+
+function App() {
+  return (<>
+  <div>
+    <ScaleBox />
+  </div>
+
+  
+  
+  </>)
 }
 
 export default App; 

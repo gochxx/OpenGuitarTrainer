@@ -27,13 +27,38 @@ body {
 }
 
 
+.tabs {
+  position: absolute; /* Um die absolute Positionierung des overlay-grid relativ zur app zu ermöglichen */
+  display: grid;
+  top: 400px;
+  left: 100px;
+}
+
 .horizontal-line {
   border-top: 1px solid black;
   width: 500px;
-  margin: 10px 0; /* Abstand über und unter der Linie anpassen */
+  margin: 12px 0; /* Abstand über und unter der Linie anpassen */
 }
 
-.app {
+
+
+.overlay-grid-tab {
+  position: absolute;
+  
+  top: 5px;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 70px); /* Festlegen der Spaltenbreite */
+  grid-template-rows: repeat(6, 13px); /* Festlegen der Zeilenhöhe */
+  gap: 0px;
+  z-index: 2;
+}
+
+
+/* alles ab hier ist für die scalebox */
+
+
+.scalebox {
   position: absolute; /* Um die absolute Positionierung des overlay-grid relativ zur app zu ermöglichen */
   display: grid;
   top: 100px;
